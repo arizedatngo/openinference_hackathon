@@ -1,0 +1,5 @@
+arize-phoenix-evals>=0.0.5
+openai>=1
+arize[Tracing]
+arize>=7.1.0
+packaging

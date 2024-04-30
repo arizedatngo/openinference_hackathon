@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    environment:
+      ARIZE_EXPORT_API_KEY: ${ARIZE_EXPORT_API_KEY}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      SPACE_ID: ${SPACE_ID}
+      ARIZE_API_KEY: ${ARIZE_API_KEY}
+      SPACE_KEY: ${SPACE_KEY}
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-run.app.schedule: "@every 1m"
+      ofelia.job-run.app.command: "python main.py"
+
+  ofelia:
+    image: mcuadros/ofelia:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config.ini:/etc/ofelia/config.ini
+    command: daemon --config=/etc/ofelia/config.ini
+
